@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Components')),
+      appBar: AppBar(title: const Text('Widgets')),
       body: ListView(children: [
         ListTile(
           title: const Text('Button'),
