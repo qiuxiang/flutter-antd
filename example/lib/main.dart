@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'button.dart';
 
 void main() {
   runApp(App());
@@ -7,8 +10,9 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return GetMaterialApp(
+      title: 'Example',
+      darkTheme: ThemeData.dark(),
       home: HomePage(),
     );
   }
@@ -18,12 +22,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text('hello')],
-        ),
-      ),
+      appBar: AppBar(title: const Text('Components')),
+      body: ListView(children: [
+        ListTile(
+          title: const Text('Button'),
+          onTap: () => Get.to(() => const ButtonPage()),
+        )
+      ]),
     );
   }
 }
