@@ -10,9 +10,7 @@ class ButtonPage extends StatelessWidget {
     final state = ButtonPageState();
     Get.put(state);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Button'),
-      ),
+      appBar: AppBar(title: const Text('Button')),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         Text('Type', style: context.textTheme.headline6),
         const SizedBox(height: 16),

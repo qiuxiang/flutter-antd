@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'button.dart';
+import 'checkbox.dart';
 
 void main() {
   runApp(App());
@@ -27,7 +28,11 @@ class HomePage extends StatelessWidget {
         ListTile(
           title: const Text('Button'),
           onTap: () => Get.to(() => const ButtonPage()),
-        )
+        ),
+        ListTile(
+          title: const Text('Checkbox'),
+          onTap: () => Get.to(() => const CheckboxPage()),
+        ),
       ]),
     );
   }
