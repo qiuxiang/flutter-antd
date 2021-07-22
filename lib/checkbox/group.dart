@@ -18,11 +18,11 @@ class CheckboxGroup<T> extends StatefulWidget {
   final List<CheckboxOption<T>> options;
   final List<T> defaultValue;
   final bool disabled;
-  final void Function(List<T>) onChange;
+  final void Function(List<T>)? onChange;
 
   const CheckboxGroup({
     required this.options,
-    required this.onChange,
+    this.onChange,
     this.defaultValue = const [],
     this.disabled = false,
   });
@@ -56,7 +56,7 @@ class _CheckboxGroupState<T> extends State<CheckboxGroup<T>> {
             } else {
               values.remove(i.value);
             }
-            widget.onChange(values);
+            widget.onChange?.call(values);
           },
         );
       }).toList(),

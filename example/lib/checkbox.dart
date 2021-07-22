@@ -68,14 +68,13 @@ class CheckboxPage extends StatelessWidget {
         CheckboxGroup<String>(
           options: options,
           defaultValue: [options[0].value],
-          onChange: (value) => print('checked = $value'),
+          onChange: onChange,
         ),
         const SizedBox(height: 16),
         CheckboxGroup<String>(
           options: options,
           disabled: true,
           defaultValue: [options[0].value, options[1].value],
-          onChange: (value) => print('checked = $value'),
         ),
       ]),
     );
