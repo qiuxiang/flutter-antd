@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_antd/flutter_antd.dart';
 import 'package:get/get.dart';
 
+import 'widgets.dart';
+
 class ButtonPage extends StatelessWidget {
   const ButtonPage();
 
@@ -12,82 +14,78 @@ class ButtonPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Button')),
       body: ListView(padding: const EdgeInsets.all(16), children: [
-        Text('Type', style: context.textTheme.headline6),
-        const SizedBox(height: 16),
-        Row(children: [
+        const GroupTitle('Type'),
+        Row(children: const [
           Button(type: ButtonType.primary, text: 'Primary Button'),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(text: 'Default Button'),
         ]),
         const SizedBox(height: 8),
-        Row(children: [
+        Row(children: const [
           Button(type: ButtonType.text, text: 'Text Button'),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(type: ButtonType.link, text: 'Link Button'),
         ]),
-        const Divider(height: 32),
-        Text('Icon', style: context.textTheme.headline6),
-        const SizedBox(height: 16),
-        Row(children: [
+        const SizedBox(height: 32),
+        const GroupTitle('Icon'),
+        Row(children: const [
           Button(
             type: ButtonType.primary,
             icon: Icons.search,
             shape: ButtonShape.circle,
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(
             type: ButtonType.primary,
             text: 'A',
             shape: ButtonShape.circle,
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(type: ButtonType.primary, icon: Icons.search, text: 'Search'),
         ]),
         const SizedBox(height: 8),
-        Row(children: [
+        Row(children: const [
           Button(icon: Icons.search),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(
             text: 'A',
             shape: ButtonShape.circle,
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(icon: Icons.search, text: 'Search'),
         ]),
-        const Divider(height: 32),
-        Text('Disabled', style: context.textTheme.headline6),
-        const SizedBox(height: 16),
-        Row(children: [
+        const SizedBox(height: 32),
+        const GroupTitle('Disabled'),
+        Row(children: const [
           Button(type: ButtonType.primary, text: 'Primary'),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(type: ButtonType.primary, text: 'Primary', disabled: true),
         ]),
         const SizedBox(height: 8),
-        Row(children: [
+        Row(children: const [
           Button(text: 'Default'),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(text: 'Default', disabled: true),
         ]),
         const SizedBox(height: 8),
-        Row(children: [
+        Row(children: const [
           Button(type: ButtonType.text, text: 'Text'),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(type: ButtonType.text, text: 'Text', disabled: true),
         ]),
         const SizedBox(height: 8),
-        Row(children: [
+        Row(children: const [
           Button(type: ButtonType.link, text: 'Link'),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(type: ButtonType.link, text: 'Link', disabled: true),
         ]),
-        const Divider(height: 32),
-        Text('Loading', style: context.textTheme.headline6),
-        const SizedBox(height: 16),
-        Row(children: [
+        const SizedBox(height: 32),
+        const GroupTitle('Loading'),
+        Row(children: const [
           Button(text: 'Loading', loading: true),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(type: ButtonType.primary, text: 'Loading', loading: true),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(type: ButtonType.primary, loading: true),
         ]),
         const SizedBox(height: 8),
@@ -120,16 +118,15 @@ class ButtonPage extends StatelessWidget {
             );
           }),
         ]),
-        const Divider(height: 32),
-        Text('Danger', style: context.textTheme.headline6),
-        const SizedBox(height: 16),
-        Row(children: [
+        const SizedBox(height: 32),
+        const GroupTitle('Danger'),
+        Row(children: const [
           Button(type: ButtonType.primary, text: 'Primary', danger: true),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(text: 'Default', danger: true),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(type: ButtonType.text, text: 'Text', danger: true),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Button(type: ButtonType.link, text: 'Link', danger: true),
         ]),
       ]),

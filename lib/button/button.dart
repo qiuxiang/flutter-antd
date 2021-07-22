@@ -10,8 +10,9 @@ class Button extends StatelessWidget {
   final bool disabled;
   final bool danger;
   final IconData? icon;
+  final ButtonSize size;
 
-  Button({
+  const Button({
     this.onClick,
     this.child,
     this.text = '',
@@ -20,6 +21,7 @@ class Button extends StatelessWidget {
     this.loading = false,
     this.disabled = false,
     this.danger = false,
+    this.size = ButtonSize.middle,
     this.icon,
   });
 

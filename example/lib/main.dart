@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'button.dart';
 import 'checkbox.dart';
+import 'space.dart';
 
 void main() {
   runApp(App());
@@ -28,6 +29,10 @@ class HomePage extends StatelessWidget {
         ListTile(
           title: const Text('Button'),
           onTap: () => Get.to(() => const ButtonPage()),
+        ),
+        ListTile(
+          title: const Text('Space'),
+          onTap: () => Get.to(() => const SpacePage()),
         ),
         ListTile(
           title: const Text('Checkbox'),
