@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+export 'group.dart';
 
 class AntdCheckbox extends StatefulWidget {
   final void Function(bool)? onChange;
@@ -50,7 +52,7 @@ class _AntdCheckboxState extends State<AntdCheckbox> {
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
       onTap: widget.disabled ? null : () => onChanged(!value),
-      child: Row(children: [
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
         SizedBox(
           height: 20,
           width: 20,

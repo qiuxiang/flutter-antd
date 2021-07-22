@@ -4,6 +4,16 @@ import 'package:get/get.dart';
 
 import 'widgets.dart';
 
+const options = [
+  CheckboxOption(label: 'Apple', value: 'Apple'),
+  CheckboxOption(label: 'Pear', value: 'Pear'),
+  CheckboxOption(label: 'Orange', value: 'Orange'),
+];
+
+void onChange(dynamic value) {
+  print('checked = $value');
+}
+
 class CheckboxPage extends StatelessWidget {
   const CheckboxPage();
 
@@ -15,12 +25,7 @@ class CheckboxPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Checkbox')),
       body: ListView(padding: const EdgeInsets.all(16), children: [
         const GroupTitle('Basic'),
-        Row(children: [
-          AntdCheckbox(
-            label: 'Checkbox',
-            onChange: (value) => print('checked = $value'),
-          ),
-        ]),
+        const AntdCheckbox(label: 'Checkbox', onChange: onChange),
         const SizedBox(height: 32),
         const GroupTitle('Disabled'),
         Row(children: const [
@@ -58,6 +63,20 @@ class CheckboxPage extends StatelessWidget {
             );
           }),
         ]),
+        const SizedBox(height: 32),
+        const GroupTitle('Checkbox Group'),
+        CheckboxGroup<String>(
+          options: options,
+          defaultValue: [options[0].value],
+          onChange: (value) => print('checked = $value'),
+        ),
+        const SizedBox(height: 16),
+        CheckboxGroup<String>(
+          options: options,
+          disabled: true,
+          defaultValue: [options[0].value, options[1].value],
+          onChange: (value) => print('checked = $value'),
+        ),
       ]),
     );
   }
