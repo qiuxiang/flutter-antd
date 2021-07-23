@@ -3,30 +3,32 @@ import 'package:flutter/material.dart';
 
 export 'group.dart';
 
-class AntdCheckbox extends StatefulWidget {
-  final void Function(bool)? onChange;
+class AntdRadio<T> extends StatefulWidget {
   final bool defaultChecked;
   final String label;
   final Widget? labelWidget;
   final bool disabled;
   final bool? checked;
   final bool autoFocus;
+  final T? value;
+  final void Function(T?)? onChanged;
 
-  const AntdCheckbox({
-    this.onChange,
+  const AntdRadio({
     this.label = '',
     this.labelWidget,
     this.defaultChecked = false,
     this.disabled = false,
     this.autoFocus = false,
     this.checked,
+    this.value,
+    this.onChanged,
   });
 
   @override
-  _AntdCheckboxState createState() => _AntdCheckboxState();
+  _AntdRadioState<T> createState() => _AntdRadioState<T>();
 }
 
-class _AntdCheckboxState extends State<AntdCheckbox> {
+class _AntdRadioState<T> extends State<AntdRadio<T>> {
   bool checked = false;
 
   @override
@@ -36,7 +38,7 @@ class _AntdCheckboxState extends State<AntdCheckbox> {
   }
 
   @override
-  void didUpdateWidget(AntdCheckbox old) {
+  void didUpdateWidget(AntdRadio<T> old) {
     super.didUpdateWidget(old);
     if (widget.checked != null && widget.checked != old.checked) {
       setState(() => checked = widget.checked!);
@@ -51,15 +53,16 @@ class _AntdCheckboxState extends State<AntdCheckbox> {
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onTap: widget.disabled ? null : () => onChanged(!checked),
+      onTap: widget.disabled ? null : onTap,
       child: Row(mainAxisSize: MainAxisSize.min, children: [
         SizedBox(
           height: 20,
           width: 20,
-          child: Checkbox(
+          child: Radio(
             autofocus: widget.autoFocus,
-            onChanged: widget.disabled ? null : onChanged,
+            onChanged: widget.disabled ? null : (_) => onTap(),
             value: checked,
+            groupValue: true,
             mouseCursor: mouseCursor,
             splashRadius: widget.disabled ? 0 : null,
           ),
@@ -70,11 +73,10 @@ class _AntdCheckboxState extends State<AntdCheckbox> {
     );
   }
 
-  // ignore: avoid_positional_boolean_parameters
-  void onChanged(bool? value) {
-    if (widget.checked == null) {
-      setState(() => checked = value!);
+  void onTap() {
+    if (!checked) {
+      setState(() => checked = true);
+      widget.onChanged?.call(widget.value);
     }
-    widget.onChange?.call(value!);
   }
 }

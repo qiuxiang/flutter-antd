@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'button.dart';
 import 'checkbox.dart';
+import 'radio.dart';
 import 'space.dart';
 
 void main() {
@@ -37,6 +38,10 @@ class HomePage extends StatelessWidget {
         ListTile(
           title: const Text('Checkbox'),
           onTap: () => Get.to(() => const CheckboxPage()),
+        ),
+        ListTile(
+          title: const Text('Radio'),
+          onTap: () => Get.to(() => const RadioPage()),
         ),
       ]),
     );

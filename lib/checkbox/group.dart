@@ -6,11 +6,13 @@ class CheckboxOption<T> {
   final T value;
   final String label;
   final Widget? labelWidget;
+  final bool disabled;
 
   const CheckboxOption({
     required this.value,
     this.label = '',
     this.labelWidget,
+    this.disabled = false,
   });
 }
 
@@ -49,7 +51,7 @@ class _CheckboxGroupState<T> extends State<CheckboxGroup<T>> {
           label: i.label,
           labelWidget: i.labelWidget,
           defaultChecked: values.contains(i.value),
-          disabled: widget.disabled,
+          disabled: widget.disabled || i.disabled,
           onChange: (checked) {
             if (checked) {
               values.add(i.value);
