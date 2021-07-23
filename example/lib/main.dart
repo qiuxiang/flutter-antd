@@ -5,6 +5,7 @@ import 'button.dart';
 import 'checkbox.dart';
 import 'radio.dart';
 import 'space.dart';
+import 'switch.dart';
 
 void main() {
   runApp(App());
@@ -42,6 +43,10 @@ class HomePage extends StatelessWidget {
         ListTile(
           title: const Text('Radio'),
           onTap: () => Get.to(() => const RadioPage()),
+        ),
+        ListTile(
+          title: const Text('Switch'),
+          onTap: () => Get.to(() => const SwitchPage()),
         ),
       ]),
     );

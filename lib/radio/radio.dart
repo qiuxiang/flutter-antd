@@ -22,7 +22,8 @@ class AntdRadio<T> extends StatefulWidget {
     this.checked,
     this.value,
     this.onChanged,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   _AntdRadioState<T> createState() => _AntdRadioState<T>();

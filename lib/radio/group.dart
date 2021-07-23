@@ -34,7 +34,8 @@ class RadioGroup<T extends Object> extends StatefulWidget {
     this.value,
     this.disabled = false,
     this.optionType,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   _RadioGroupState<T> createState() => _RadioGroupState<T>();

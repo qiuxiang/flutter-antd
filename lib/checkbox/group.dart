@@ -27,7 +27,8 @@ class CheckboxGroup<T> extends StatefulWidget {
     this.onChange,
     this.defaultValue = const [],
     this.disabled = false,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   _CheckboxGroupState<T> createState() => _CheckboxGroupState<T>();

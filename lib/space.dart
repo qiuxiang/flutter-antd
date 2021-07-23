@@ -17,7 +17,8 @@ class Space extends StatelessWidget {
     this.split,
     this.wrap = false,
     this.runSpacing = 16,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

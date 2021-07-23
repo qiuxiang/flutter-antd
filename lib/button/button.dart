@@ -23,7 +23,8 @@ class Button extends StatelessWidget {
     this.danger = false,
     this.size = ButtonSize.middle,
     this.icon,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
