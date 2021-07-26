@@ -4,14 +4,16 @@ import 'package:flutter/cupertino.dart';
 class AntdSwitch extends StatefulWidget {
   final bool? checked;
   final bool defaultChecked;
-  final double width;
+  final Widget? checkedChildren;
+  final Widget? unCheckedChildren;
   final void Function(bool)? onChange;
 
   const AntdSwitch({
     this.checked,
     this.defaultChecked = false,
     this.onChange,
-    this.width = 44,
+    this.checkedChildren,
+    this.unCheckedChildren,
     Key? key,
   }) : super(key: key);
 
@@ -20,10 +22,16 @@ class AntdSwitch extends StatefulWidget {
 }
 
 class _AntdSwitchState extends State<AntdSwitch> with TickerProviderStateMixin {
-  bool checked = false;
+  static const padding = 2.0;
+  static const size = 18.0;
   late final AnimationController controller;
   late final CurvedAnimation animation;
   late final Animation<Color?> color;
+  final checkedWidget = GlobalKey();
+  final unCheckedWidget = GlobalKey();
+  double checkedWidth = 0;
+  double unCheckedWidth = 0;
+  bool checked = false;
 
   @override
   void initState() {
@@ -41,6 +49,12 @@ class _AntdSwitchState extends State<AntdSwitch> with TickerProviderStateMixin {
     if (checked) {
       controller.forward(from: 1);
     }
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      setState(() {
+        checkedWidth = getWidth(checkedWidget);
+        unCheckedWidth = getWidth(unCheckedWidget);
+      });
+    });
   }
 
   @override
@@ -51,60 +65,93 @@ class _AntdSwitchState extends State<AntdSwitch> with TickerProviderStateMixin {
     }
   }
 
+  double getWidth(GlobalKey key) {
+    final render = key.currentContext?.findRenderObject();
+    if (render == null) return size;
+    return (render as RenderBox).size.width + size / 2 + padding;
+  }
+
   @override
   Widget build(BuildContext context) {
     // final theme = Theme.of(context);
-    const height = 22.0;
-    const size = height - 4;
-    return GestureDetector(
-      onTap: toggle,
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: AnimatedBuilder(
-          animation: controller,
-          builder: (context, child) {
-            return Container(
-              width: widget.width,
-              height: height,
-              decoration: BoxDecoration(
-                color: color.value,
-                borderRadius: BorderRadius.circular(22),
-              ),
-              child: child,
-            );
-          },
-          child: Stack(children: [
-            AnimatedBuilder(
-              animation: controller,
-              child: Container(
-                width: size,
-                height: size,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(height - 4),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x3300230b),
-                      offset: Offset(0, 2),
-                      blurRadius: 4,
-                    ),
-                  ],
-                ),
-              ),
-              builder: (context, child) {
-                final left = (widget.width - size - 4) * animation.value + 2;
-                return Positioned(top: 2, left: left, child: child!);
-              },
+    final width = checkedWidth + size;
+    final children = <Widget>[];
+    if (widget.checkedChildren != null) {
+      final child = widget.checkedChildren!;
+      children.add(buildAnimatedLabel(child, checked ? 1 : 0, checkedWidget));
+    }
+    if (widget.unCheckedChildren != null) {
+      final child = widget.unCheckedChildren!;
+      children.add(buildAnimatedLabel(child, checked ? 0 : 1));
+    }
+    children.add(AnimatedBuilder(
+      animation: controller,
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(size),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x3300230b),
+              offset: Offset(0, 2),
+              blurRadius: 4,
             ),
-            // const Positioned(
-            //   top: 2,
-            //   left: height + 2,
-            //   child: Text(
-            //     '关闭',
-            //     style: TextStyle(fontSize: 12, color: Colors.white),
-            //   ),
-            // ),
-          ]),
+          ],
+        ),
+      ),
+      builder: (context, child) {
+        final left = (width - size) * animation.value;
+        return Positioned(left: left, child: child!);
+      },
+    ));
+    return Row(mainAxisSize: MainAxisSize.min, children: [
+      GestureDetector(
+        onTap: toggle,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: AnimatedBuilder(
+            animation: controller,
+            builder: (context, child) {
+              return Container(
+                width: width + padding * 2,
+                height: size + padding * 2,
+                padding: const EdgeInsets.all(padding),
+                decoration: BoxDecoration(
+                  color: color.value,
+                  borderRadius: BorderRadius.circular(size),
+                ),
+                child: child,
+              );
+            },
+            child: Stack(children: children),
+          ),
+        ),
+      ),
+    ]);
+  }
+
+  Widget buildLabel(_, Widget? child) {
+    final left = size / 2 - padding + (size - padding) * (1 - animation.value);
+    return Positioned(left: left, child: child!);
+  }
+
+  Widget buildAnimatedLabel(Widget child, double opacity, [Key? key]) {
+    const textStyle = TextStyle(fontSize: 12, color: Colors.white);
+    return AnimatedBuilder(
+      animation: controller,
+      builder: buildLabel,
+      child: Container(
+        height: size,
+        alignment: Alignment.center,
+        child: AnimatedOpacity(
+          opacity: opacity,
+          duration: controller.duration!,
+          child: IconTheme(
+            data: const IconThemeData(size: 16, color: Colors.white),
+            child: DefaultTextStyle(key: key, style: textStyle, child: child),
+          ),
         ),
       ),
     );
@@ -118,7 +165,7 @@ class _AntdSwitchState extends State<AntdSwitch> with TickerProviderStateMixin {
   }
 
   void changeState() {
-    checked = !checked;
+    setState(() => checked = !checked);
     if (checked) {
       controller.forward();
     } else {

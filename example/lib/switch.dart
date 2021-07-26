@@ -20,6 +20,25 @@ class SwitchPage extends StatelessWidget {
           const SizedBox(width: 8),
           const AntdSwitch(onChange: onChange),
         ]),
+        const SizedBox(height: 32),
+        const GroupTitle('Text & icon'),
+        const AntdSwitch(
+          checkedChildren: Text('开启'),
+          unCheckedChildren: Text('关闭'),
+          defaultChecked: true,
+        ),
+        const SizedBox(height: 8),
+        const AntdSwitch(
+          checkedChildren: Text('1'),
+          unCheckedChildren: Text('0'),
+        ),
+        const SizedBox(height: 8),
+        const AntdSwitch(
+          checkedChildren: Icon(Icons.check),
+          unCheckedChildren: Icon(Icons.close),
+          defaultChecked: true,
+        ),
+        const SizedBox(height: 32),
       ]),
     );
   }
